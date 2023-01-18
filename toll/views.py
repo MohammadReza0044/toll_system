@@ -1,7 +1,9 @@
+import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Q
+from django.core import serializers
 
 
 from . models import Car , Owner , Road , TollStaion
@@ -53,3 +55,8 @@ class OwnerList (APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class TollList (APIView):
+    def get (self,request):
+        toll = Owner.objects.filter(total_toll_paid__gt = 1).only('name','national_code').order_by('-total_toll_paid')
+        serializer = OwnerSerializer (toll, many = True)
+        return Response (serializer.data) 
