@@ -1,8 +1,10 @@
+from django.http import HttpResponse
+
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Q
-
 
 
 from . models import Car , Owner , Road , TollStaion
@@ -18,8 +20,16 @@ class carList (APIView):
     def post(self, request, format=None):
         serializer = CarSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            if request.data['type'] == 'BIG':
+                new_big = Car.objects.filter(ownerCar__id = request.data['ownerCar'] , type = 'BIG')
+                if new_big.exists():
+                    return HttpResponse ('کاربر نمیتواند دو تا ماشین سنگین داشته باشد')
+                else: 
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else: 
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
