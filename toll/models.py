@@ -22,6 +22,7 @@ class Car(models.Model):
     color = models.CharField(max_length=200)
     lenght = models.DecimalField(max_digits=3, decimal_places=2)
     load_valume = models.DecimalField(null=True, max_digits=4, decimal_places=1)
+    total_toll = models.IntegerField(default=0)
     ownerCar = models.ForeignKey(Owner, on_delete=models.CASCADE)
 
 

@@ -6,13 +6,14 @@ class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = '__all__'
-        depth = 1
+        
+
 
 class OwnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Owner
         fields = '__all__'
-        depth = 1
+    
 
 
 class RoadSerializer(serializers.ModelSerializer):

@@ -1,9 +1,8 @@
-import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Q
-from django.core import serializers
+
 
 
 from . models import Car , Owner , Road , TollStaion
@@ -28,7 +27,7 @@ class ColorCarList (APIView):
     def get (self,request):
         cars = Car.objects.filter(
             Q(color='red') | Q(color='blue') 
-             )
+        )
         serializer = CarSerializer (cars, many = True)
         return Response (serializer.data) 
 
@@ -57,6 +56,8 @@ class OwnerList (APIView):
 
 class TollList (APIView):
     def get (self,request):
-        toll = Owner.objects.filter(total_toll_paid__gt = 1).only('name','national_code').order_by('-total_toll_paid')
+        toll = Owner.objects.filter(
+            total_toll_paid__gt = 1
+        ).only('name','national_code').order_by('-total_toll_paid')
         serializer = OwnerSerializer (toll, many = True)
         return Response (serializer.data) 
