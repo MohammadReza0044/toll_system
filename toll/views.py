@@ -7,8 +7,8 @@ from rest_framework import status
 from django.db.models import Q
 
 
-from . models import Car , Owner , Road , TollStaion
-from . serializers import CarSerializer, OwnerSerializer, RoadSerializer, TollStaionSerializer
+from . models import Car , Owner ,Traffic, Road , TollStaion 
+from . serializers import CarSerializer, OwnerSerializer, TrafficSerializer, RoadSerializer, TollStaionSerializer
 
 
 class carList (APIView):
@@ -70,4 +70,13 @@ class TollList (APIView):
             total_toll_paid__gt = 1
         ).only('name','national_code').order_by('-total_toll_paid')
         serializer = OwnerSerializer (toll, many = True)
+        return Response (serializer.data) 
+
+    
+class TrafficList (APIView):
+    def get (self,request):
+        traffic = Traffic.objects.filter(
+            Q(car__type='BIG') & Q(road__width__lt= 20) 
+        )
+        serializer = TrafficSerializer (traffic, many = True)
         return Response (serializer.data) 

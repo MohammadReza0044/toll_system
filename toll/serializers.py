@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from . models import Car , Owner , Road , TollStaion
+from . models import Car , Owner , Road , TollStaion , Traffic
 
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,4 +25,10 @@ class RoadSerializer(serializers.ModelSerializer):
 class TollStaionSerializer(serializers.ModelSerializer):
     class Meta:
         model = TollStaion
+        fields = '__all__'
+
+
+class TrafficSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Traffic
         fields = '__all__'

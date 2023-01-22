@@ -27,13 +27,9 @@ class Car(models.Model):
 
 
 
-
-
-
-
 class Road(models.Model):
     name = models.CharField(max_length=255)
-    width = models.DecimalField(max_digits=16, decimal_places=15)
+    width = models.DecimalField(max_digits=20, decimal_places=18)
     geom = models.CharField(max_length=255) 
 
 
@@ -44,4 +40,8 @@ class TollStaion(models.Model):
     location = LocationField()  
 
 
+class Traffic(models.Model):
+    car = models.ForeignKey(Car , on_delete=models.CASCADE)
+    road = models.ForeignKey(Road , on_delete=models.CASCADE)
+    date = models.DateField(auto_created=True)
 
