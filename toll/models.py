@@ -37,7 +37,7 @@ class Road(models.Model):
 class TollStaion(models.Model):
     name = models.CharField(max_length=200)
     toll_per_cross = models.IntegerField()
-    location = LocationField()  
+    location = models.CharField(max_length=255)  
 
 
 class Traffic(models.Model):
@@ -45,3 +45,9 @@ class Traffic(models.Model):
     road = models.ForeignKey(Road , on_delete=models.CASCADE)
     date = models.DateField(auto_created=True)
 
+
+class Toll(models.Model):
+    car = models.ForeignKey(Car , on_delete=models.CASCADE)
+    toll_station = models.ForeignKey(TollStaion , on_delete=models.CASCADE)
+    toll_per_cross = models.IntegerField()
+    date = models.DateField(auto_created=True)

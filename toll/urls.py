@@ -9,5 +9,6 @@ urlpatterns = [
     path ('more-70', views.MoreThan70yearsCarList.as_view(), name='more-70'),
     path ('toll-list', views.TollList.as_view(), name='toll-list'),
     path ('traffic-list', views.TrafficList.as_view(), name='traffic-list'),
+    path ('toll-list', views.TollList.as_view(), name='toll-list'),
 ]
 
