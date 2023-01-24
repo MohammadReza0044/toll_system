@@ -7,7 +7,7 @@ from rest_framework import status
 from django.db.models import Q
 
 
-from . models import Car , Owner ,Traffic, Road , TollStaion, Toll 
+from . models import Car , Owner ,Traffic, TollStaion, Toll 
 from . serializers import CarSerializer, OwnerSerializer, TrafficSerializer, TollSerializer
 
 
@@ -68,7 +68,7 @@ class TollList (APIView):
     def get (self,request):
         toll = Owner.objects.filter(
             total_toll_paid__gt = 1
-        ).only('name','national_code').order_by('-total_toll_paid')
+        ).order_by('-total_toll_paid')
         serializer = OwnerSerializer (toll, many = True)
         return Response (serializer.data) 
 
@@ -82,12 +82,7 @@ class TrafficList (APIView):
         return Response (serializer.data) 
 
 
-class TollList (APIView):
-    def get (self,request,pk):
-        toll_list = Toll.objects.filter(car = pk)
-        serializer = TollSerializer (toll_list, many = True)
-        return Response (serializer.data) 
-    
+class NewTollCreate (APIView):
     def post(self, request, format=None):
         serializer = TollSerializer(data=request.data)
         if serializer.is_valid():
@@ -106,3 +101,33 @@ class TollList (APIView):
             owner.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CarTollDetail (APIView):
+    def get (self,request,pk,start_date,end_date):
+        car = Toll.objects.filter(
+            Q(car__id = pk) & Q(date__gt= start_date , date__lt = end_date) 
+        )
+
+        total = 0
+        for i in car:
+            total += i.toll_per_cross
+        
+        serializer = TollSerializer (car , many = True)
+        res = {'total': f" total toll is: {total}" , 'car': serializer.data}
+        return Response (res) 
+
+
+class OwnerTollDetail (APIView):
+    def get (self,request,pk,start_date,end_date):
+        car = Toll.objects.filter(
+            Q(car__ownerCar = pk) & Q(date__gt= start_date , date__lt = end_date) 
+        )
+
+        total = 0
+        for i in car:
+            total += i.toll_per_cross
+        
+        serializer = TollSerializer (car , many = True)
+        res = {'total': f" total toll is: {total}" , 'car': serializer.data}
+        return Response (res) 

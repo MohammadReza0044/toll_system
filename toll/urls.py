@@ -9,6 +9,8 @@ urlpatterns = [
     path ('more-70', views.MoreThan70yearsCarList.as_view(), name='more-70'),
     path ('toll-list', views.TollList.as_view(), name='toll-list'),
     path ('traffic-list', views.TrafficList.as_view(), name='traffic-list'),
-    path ('toll-list', views.TollList.as_view(), name='toll-list'),
+    path ('new-toll', views.NewTollCreate.as_view(), name='new-toll'),
+    path ('car-toll-detail/<int:pk>/<str:start_date>/<str:end_date>', views.CarTollDetail.as_view(), name='car-toll-detail'),
+    path ('owner-toll-detail/<int:pk>/<str:start_date>/<str:end_date>', views.OwnerTollDetail.as_view(), name='owner-toll-detail'),
 ]
 

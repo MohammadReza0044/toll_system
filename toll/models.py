@@ -1,5 +1,4 @@
 from django.db import models
-from mapbox_location_field.models import LocationField 
 
 
 class Owner(models.Model):
