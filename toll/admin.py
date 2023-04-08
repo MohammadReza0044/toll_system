@@ -1,8 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from . models import Owner, Car , Traffic , Road, Toll, TollStaion
-
+from .models import Car, Owner, Road, Toll, TollStaion, Traffic
 
 admin.site.register(Owner)
 admin.site.register(Car)
