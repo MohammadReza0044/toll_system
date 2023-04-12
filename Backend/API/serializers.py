@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Car, Owner, Road, Toll, TollStaion, Traffic
+from ..toll.models import Car, Owner, Road, Toll, TollStaion, Traffic
 
 
 class CarSerializer(serializers.ModelSerializer):
