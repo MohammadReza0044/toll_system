@@ -5,12 +5,13 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..API.serializers import (
+from API.serializers import (
     CarSerializer,
     OwnerSerializer,
     TollSerializer,
     TrafficSerializer,
 )
+
 from .models import Car, Owner, Toll, TollStaion, Traffic
 
 

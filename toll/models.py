@@ -7,6 +7,9 @@ class Owner(models.Model):
     age = models.IntegerField()
     total_toll_paid = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.name
+
 
 class Car(models.Model):
     small = "SMALL"
