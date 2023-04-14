@@ -36,4 +36,5 @@ class TrafficSerializer(serializers.ModelSerializer):
 class TollSerializer(serializers.ModelSerializer):
     class Meta:
         model = Toll
-        fields = ["car", "toll_station", "date"]
+        fields = "__all__"
+        read_only_fields = ("toll_per_cross",)
