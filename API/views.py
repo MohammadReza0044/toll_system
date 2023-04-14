@@ -17,6 +17,8 @@ from .serializers import (
 class OwnerViewSet(ModelViewSet):
     queryset = Owner.objects.all()
     serializer_class = OwnerSerializer
+    ordering_fields = ["total_toll_paid"]
+    ordering = ["-total_toll_paid"]
 
 
 class CarViewSet(ModelViewSet):
